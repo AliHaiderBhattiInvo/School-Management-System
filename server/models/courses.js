@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsToMany(models.Students, { through: "StudentsCourses", foreignKey: "course_id" });
+      this.belongsTo(models.Users, { foreignKey: "teacher_id"});
     }
   }
   Courses.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    teacher_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Courses',
