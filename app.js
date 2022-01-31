@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./server/routes/user')
 const authRoutes = require("./server/routes/auth")
+const courseRoutes = require("./server/routes/course")
 
 // Set up the express app
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', userRoutes);
 app.use("/api", authRoutes)
+app.use("/api", courseRoutes)
 
 const port = process.env.PORT || 4000
 app.listen(port,()=>{
