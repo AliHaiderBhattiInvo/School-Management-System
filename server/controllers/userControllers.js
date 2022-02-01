@@ -64,13 +64,69 @@ const deleteUser = async (req, res) => {
           },
         });
     }
-    res.status(200).json("User deleted successfully!")
+    res.status(200).json("User deleted successfully!");
   } catch (error) {
-      res.status(500).send(error)
+    res.status(500).send(error);
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    var user = await userModel.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    var loginUser = await userModel.findOne({
+        where: {
+            token: req.headers.token
+        }
+    })
+    if (user) {
+      if (loginUser.role == "admin" || user.token == req.headers.token) {
+        await user.update({
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+        });
+        res.status(200).json("User updated successfully!");
+      } else res.json("You're not authorized to perform this action!");
+    } else res.json("User doesn't exist");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const fetchStudents = async (req, res) => {
+  try {
+    var students = await userModel.findAll({
+      where: {
+        role: "student",
+      },
+    });
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const fetchTeachers = async (req, res) => {
+  try {
+    var teachers = await userModel.findAll({
+      where: {
+        role: "teacher",
+      },
+    });
+    res.status(200).json(teachers);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
 module.exports = {
   createUser,
   deleteUser,
+  updateUser,
+  fetchStudents,
+  fetchTeachers,
 };

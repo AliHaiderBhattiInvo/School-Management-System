@@ -14,4 +14,12 @@ router.put("/updateCourse/:id", userMiddleware.validateUser, courseControllers.u
 
 router.delete("/deleteCourse/:id", userMiddleware.validateUser, courseControllers.deleteCourse)
 
+router.post("/assignCourse/student", courseControllers.assignCourseStudent)
+
+router.post("/student/courses", courseControllers.studentOptedCourses)
+
+router.post("/assignCourse/teacher", userMiddleware.validateUser, courseControllers.assignCourseTeacher)
+
+router.post("/teacher/courses", userMiddleware.validateUser, courseControllers.teacherAssignedCourses)
+
 module.exports = router
