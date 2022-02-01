@@ -21,13 +21,9 @@ const createUser = async (req, res) => {
         role: req.body.role.toLowerCase(),
       });
       if (req.body.role.toLowerCase() == "student") {
-        await studentModel.create({
-          student_id: user.id,
-        });
+          user.createStudent()
       } else if (req.body.role.toLowerCase() == "teacher") {
-        await teacherModel.create({
-          teacher_id: user.id,
-        });
+          user.createTeacher()
       }
       res.status(200).json({ user: user });
     } else {
