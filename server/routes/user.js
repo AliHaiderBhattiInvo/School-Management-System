@@ -7,34 +7,41 @@ const { body } = require("express-validator");
 
 router.post(
   "/createUser",
-  userMiddleware.validateUser,
+  userMiddleware.validateAdmin,
   [
     body("name").isLength({ min: 3 }),
     body("email").isEmail(),
     body("password").isLength({ min: 5 }),
   ],
   userMiddleware.validateRequest,
+  userMiddleware.validateUserCreate,
   userControllers.createUser
 );
 
 router.delete(
   "/deleteUser",
-  userMiddleware.validateUser,
+  userMiddleware.validateAdmin,
+  userMiddleware.validateUserExist,
   userControllers.deleteUser
 );
 
 router.get(
   "/fetch/students",
-  userMiddleware.validateUser,
+  userMiddleware.validateAdmin,
   userControllers.fetchStudents
 );
 
 router.get(
   "/fetch/teachers",
-  userMiddleware.validateUser,
+  userMiddleware.validateAdmin,
   userControllers.fetchTeachers
 );
 
-router.post("/updateUser/:id", userControllers.updateUser);
+router.put(
+  "/updateUser/:id",
+  userMiddleware.validateUserExistID,
+  userMiddleware.validateLoginUser,
+  userControllers.updateUser
+);
 
 module.exports = router;
