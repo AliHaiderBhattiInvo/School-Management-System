@@ -26,7 +26,6 @@ const validateExistingCourseID = async (req, res, next) => {
 };
 
 const validateCourse = async (req, res, next) => {
-    console.log("validate")
   const course = await courseModel.findOne({
     where: {
       id: req.body.course_id,

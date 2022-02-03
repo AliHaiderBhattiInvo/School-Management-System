@@ -4,10 +4,7 @@ const userMiddleware = require("../middlewares/userMiddleware");
 const courseMiddleware = require("../middlewares/courseMiddleware");
 const courseControllers = require("../controllers/courseControllers");
 
-router.get(
-  "/fetchCourses",
-  courseControllers.fetchCourses
-);
+router.get("/fetchCourses", courseControllers.fetchCourses);
 
 router.post(
   "/createCourse",

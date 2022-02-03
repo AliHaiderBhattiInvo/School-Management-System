@@ -31,7 +31,7 @@ const getSingleCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
   try {
-    const course = req.course
+    const course = req.course;
     await course.update({
       name: req.body.name.toLowerCase(),
     });
