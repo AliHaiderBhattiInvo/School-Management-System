@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./server/routes/user')
 const authRoutes = require("./server/routes/auth")
 const courseRoutes = require("./server/routes/course")
-
+const cors = require('cors');
 // Set up the express app
 const app = express();
+app.use(cors())
 
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)

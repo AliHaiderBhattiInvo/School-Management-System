@@ -12,6 +12,7 @@ const login = async (req, res) => {
   try {
     const user = req.user;
     if (await bcrypt.compare(req.body.password, user.password)) {
+      console.log("is if me aya ha")
       const token = jwt.sign(
         { id: user.id, email: req.body.email },
         process.env.TOKEN_SECRET,
@@ -23,9 +24,13 @@ const login = async (req, res) => {
       user.update({
         token: token,
       });
-      res.status(200).json({ user: user });
-    } else res.json("Invalid credentials!");
+      res.json({status:200,  user: user });
+    } else {
+      console.log('is else me aya ha')
+      res.json({status:400, error:"Invalid credentials!"});
+    } 
   } catch (e) {
+    console.log('catch me  aya ha')
     res.status(500).json({ error: e.message });
   }
 };

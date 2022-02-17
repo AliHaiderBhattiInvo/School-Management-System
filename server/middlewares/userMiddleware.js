@@ -53,7 +53,7 @@ const validateUserExist = async (req, res, next) => {
   if (user) {
     req.user = user;
     next();
-  } else res.json("Invalid credentials!");
+  } else res.json({status:400, error:"Invalid credentials!"});
 };
 
 const validateUserCreate = async (req, res, next) => {
